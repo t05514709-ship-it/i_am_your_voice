@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Smart news about American politics. No spin. Just the facts. Get your daily analysis and breaking news from @i_am_yourvoice.">
+  <title>@i_am_yourvoice - American News & Politics</title>
+
+  <!-- Favicon and Meta Tags -->
+  <link rel="icon" href="logo.png">
+  <meta property="og:title" content="@i_am_yourvoice - American News & Politics">
+  <meta property="og:description" content="Smart news. No spin. Just the facts.">
+  <meta property="og:image" content="logo.png">
+  <meta property="og:url" content="https://iamyourvoice.news"> 
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- External Libraries -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Montserrat:wght@700;800&family=Playfair+Display:wght@700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+  <style>
+    /* --- BASE & TYPOGRAPHY --- */
+    body {
+      font-family: 'Inter', sans-serif;
+      background-image: linear-gradient(rgba(17, 24, 39, 0.95), rgba(17, 24, 39, 0.95)), url('https://images.unsplash.com/photo-1533134486753-c833f0ed4866?q=80&w=2070&auto=format&fit=crop');
+      background-color: #111827;
+      background-size: cover;
+      background-attachment: fixed;
+      color: #fff;
+      overflow-x: hidden;
+    }
+    h1, .font-heading { font-family: 'Playfair Display', serif; }
+    h2, h3 { font-family: 'Montserrat', sans-serif; }
+
+    /* --- HEADER --- */
+    header h3 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 2.25rem;
+    }
+
+    /* --- HERO SECTION --- */
+    .logo-img {
+      box-shadow: 0 0 25px rgba(239, 68, 68, 0.6),
+                  0 0 40px rgba(59, 130, 246, 0.6);
+    }
+    .animate-gradient-x {
+      background-size: 200% 200%;
+      animation: gradient-x 6s ease infinite;
+    }
+    @keyframes gradient-x {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    /* --- NEWS CARDS (SOCIAL LINKS) --- */
+    .news-card {
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      transition: all .35s ease;
+      min-height: 120px;
+      display: flex;
+      align-items: center;
+    }
+    .news-card:hover {
+      transform: translateY(-6px) scale(1.05);
+      border-color: rgba(255, 255, 255, 0.5);
+    }
+    .news-card h4, .news-card p {
+      text-shadow: 0px 0px 5px rgba(0,0,0,0.9);
+    }
+    .news-card-youtube { background-color: rgba(200, 29, 29, 0.8); }
+    .news-card-youtube:hover { box-shadow: 0 0 25px rgba(239, 68, 68, 0.8); }
+    .news-card-facebook { background-color: rgba(24, 119, 242, 0.8); }
+    .news-card-facebook:hover { box-shadow: 0 0 25px rgba(59, 130, 246, 0.8); }
+    .news-card-lemon8 { background-color: rgba(245, 158, 11, 0.8); }
+    .news-card-lemon8:hover { box-shadow: 0 0 25px rgba(250, 204, 21, 0.8); }
+    .news-card-telegram { background-color: rgba(0, 136, 204, 0.8); }
+    .news-card-telegram:hover { box-shadow: 0 0 25px rgba(56, 189, 248, 0.8); }
+
+    /* --- BUTTONS --- */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      font-weight: bold;
+      border-radius: 9999px;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 15px rgba(239, 68, 68, 0.7), 0 0 25px rgba(59, 130, 246, 0.6);
+    }
+    .btn-red {
+      background: linear-gradient(to right, #dc2626, #ef4444);
+      color: white;
+    }
+    .btn-red:hover {
+      transform: scale(1.08);
+      background: linear-gradient(to right, #b91c1c, #dc2626);
+      box-shadow: 0 0 25px rgba(239, 68, 68, 0.9), 0 0 40px rgba(59, 130, 246, 0.8);
+    }
+
+    /* --- POLL SECTION --- */
+    .poll-container {
+      background-image: linear-gradient(rgba(13, 49, 97, 0.9), rgba(13, 49, 97, 0.9)), url('https://images.unsplash.com/photo-1508035213195-5a6915b4345a?q=80&w=2070&auto=format&fit=crop');
+      background-size: cover;
+      background-position: center;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 1rem;
+      padding: 2rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .poll-option {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 1rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: center;
+      font-weight: 500;
+    }
+    .poll-option:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: scale(1.03);
+    }
+    .poll-results .result-bar-bg {
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 0.5rem;
+      overflow: hidden;
+      padding: 0.25rem;
+    }
+    .poll-results .result-bar {
+      height: 2.5rem;
+      border-radius: 0.375rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1rem;
+      color: white;
+      font-weight: bold;
+      transition: width 0.5s ease-in-out;
+      white-space: nowrap;
+    }
+    .bar-uniting { background: linear-gradient(to right, #f59e0b, #d97706); }
+    .bar-swing_voters { background: linear-gradient(to right, #6b7280, #4b5563); }
+  </style>
+</head>
+<body class="antialiased min-h-screen">
+
+  <div class="container mx-auto max-w-4xl px-4 py-10">
+
+    <!-- === HEADER === -->
+    <header class="flex justify-between items-center mb-14">
+      <h3 class="tracking-wider">@i_am_yourvoice</h3>
+      <a href="https://www.tiktok.com/@i_am_yourvoice" target="_blank" class="btn btn-red">
+        <i data-lucide="user-plus" class="w-5 h-5"></i> Follow
+      </a>
+    </header>
+
+    <main>
+      <!-- === HERO SECTION === -->
+      <section class="text-center mb-20">
+        <div class="relative w-52 h-52 mx-auto mb-6">
+          <!-- Decorative Cloud Image -->
+          <img src="https://placehold.co/300x200/FFFFFF/FFFFFF?text=." 
+               alt="cloud background"
+               class="cloud absolute -top-8 -left-10 w-[300px] h-auto opacity-90 z-0"
+               onerror="this.style.display='none'">
+          <!-- Logo Image -->
+          <img src="https://placehold.co/208x208/111827/FFFFFF?text=Logo"
+               alt="I Am Your Voice Logo"
+               loading="lazy"
+               class="logo-img relative w-52 h-52 rounded-full border-4 border-white/40 object-cover z-10"
+               onerror="this.src='https://placehold.co/208x208/111827/FFFFFF?text=Logo'">
+        </div>
+        <h1 class="text-4xl md:text-6xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-red-500 via-white to-blue-600 animate-gradient-x">I Am Your Voice</h1>
+        <p class="text-lg md:text-xl text-white/80 mb-8">Smart news. No spin. Just the facts. Your source for American news & politics.</p>
+        <a href="https://www.tiktok.com/@i_am_yourvoice" target="_blank" class="btn btn-red">
+          <i data-lucide="play-circle" class="w-5 h-5"></i> Watch on TikTok
+        </a>
+      </section>
+
+      <!-- === SOCIAL LINKS SECTION === -->
+      <section class="mb-20 max-w-3xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <a href="https://www.youtube.com/@i_am_yourvoice" target="_blank" class="news-card news-card-youtube p-6 rounded-xl gap-5">
+            <div class="text-red-500"><i data-lucide="youtube" class="w-10 h-10"></i></div>
+            <div><h4 class="font-bold text-lg">YouTube</h4><p class="text-sm text-white/80">In-depth analysis and reports</p></div>
+          </a>
+          <a href="https://www.facebook.com/profile.php?id=61577098037179" target="_blank" class="news-card news-card-facebook p-6 rounded-xl gap-5">
+            <div class="text-blue-500"><i data-lucide="facebook" class="w-10 h-10"></i></div>
+            <div><h4 class="font-bold text-lg">Facebook</h4><p class="text-sm text-white/80">Daily news & community</p></div>
+          </a>
+          <a href="https://v.lemon8-app.com/al/OgMFrwpyUx" target="_blank" class="news-card news-card-lemon8 p-6 rounded-xl gap-5">
+            <div class="text-yellow-400"><i data-lucide="sparkles" class="w-10 h-10"></i></div>
+            <div><h4 class="font-bold text-lg">Lemon8</h4><p class="text-sm text-white/80">Behind the scenes & lifestyle</p></div>
+          </a>
+          <a href="https://t.me/iam_your_voice" target="_blank" class="news-card news-card-telegram p-6 rounded-xl gap-5">
+            <div class="text-sky-400"><i data-lucide="send" class="w-10 h-10"></i></div>
+            <div><h4 class="font-bold text-lg">Telegram</h4><p class="text-sm text-white/80">Breaking news alerts</p></div>
+          </a>
+        </div>
+      </section>
+
+      <!-- === INTERACTIVE POLL SECTION === -->
+      <section class="mb-20">
+        <div class="poll-container">
+          <h3 class="text-xl text-center text-white/80 mb-2 uppercase tracking-wider">Weekly Poll</h3>
+          <h2 id="poll-question" class="text-2xl md:text-3xl font-bold text-center mb-8 font-heading">What is Donald Trump's biggest challenge ahead of the election?</h2>
+          
+          <!-- Answer Options -->
+          <div id="poll-options" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="poll-option" data-option="uniting">Uniting the Republican Party</div>
+            <div class="poll-option" data-option="swing_voters">Winning over swing voters</div>
+          </div>
+
+          <!-- Results (hidden by default) -->
+          <div id="poll-results" class="hidden space-y-4">
+            <div>
+              <div class="result-bar-bg">
+                <div id="result-bar-uniting" class="result-bar bar-uniting" style="width: 0%;">
+                  <span>Uniting the Party</span>
+                  <span id="result-percent-uniting">0%</span>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="result-bar-bg">
+                <div id="result-bar-swing_voters" class="result-bar bar-swing_voters" style="width: 0%;">
+                  <span>Swing Voters</span>
+                  <span id="result-percent-swing_voters">0%</span>
+                </div>
+              </div>
+            </div>
+            <p class="text-center text-sm text-white/70 pt-4">Thank you for your vote!</p>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- === FOOTER === -->
+    <footer class="text-center pt-10 relative mt-10 max-w-3xl mx-auto">
+      <div class="flex justify-center items-center gap-6 mb-6">
+        <a href="mailto:contact@iamyourvoice.news" class="text-white/60 hover:text-white transition-colors" aria-label="Email me"><i data-lucide="mail" class="w-6 h-6"></i></a>
+        <a href="https://buymeacoffee.com/iamyourvoice" target="_blank" class="btn btn-red">Support My Work</a>
+        <a href="https://t.me/iam_your_voice" target="_blank" class="text-white/60 hover:text-white transition-colors" aria-label="Join my Telegram"><i data-lucide="send" class="w-6 h-6"></i></a>
+      </div>
+      <p class="text-sm text-white/60">© <span id="current-year"></span> @i_am_yourvoice. All rights reserved.</p>
+    </footer>
+  </div>
+
+  <!-- === SCRIPTS === -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Initialize Lucide Icons
+      lucide.createIcons();
+
+      // --- GSAP Animations ---
+      // Logo Animation
+      gsap.from('.logo-img', { duration: 1.2, opacity: 0, scale: 0.9, ease: "power3.out" });
+      gsap.to('.logo-img', { y: 15, repeat: -1, yoyo: true, duration: 3.5, ease: "power1.inOut" });
+      
+      // News Cards Animation
+      gsap.from('.news-card', { duration: 1, y: 50, stagger: 0.15, delay: 0.3, ease: "power3.out" });
+      
+      // Cloud Animation
+      gsap.to('.cloud', { x: 25, y: -10, duration: 8, repeat: -1, yoyo: true, ease: "sine.inOut" });
+      
+      // Set current year in footer
+      document.getElementById('current-year').textContent = new Date().getFullYear();
+
+      // --- Poll Logic ---
+      const pollId = 'trumpChallengePoll2024'; // Unique ID for this poll
+      const pollOptionsContainer = document.getElementById('poll-options');
+      const pollResultsContainer = document.getElementById('poll-results');
+      
+      // Get votes from localStorage or create a new object with initial values
+      let votes = JSON.parse(localStorage.getItem(pollId + '_votes')) || { uniting: 110, swing_voters: 185 };
+
+      // Function to display poll results
+      function showResults() {
+        pollOptionsContainer.classList.add('hidden');
+        pollResultsContainer.classList.remove('hidden');
+
+        const totalVotes = Object.values(votes).reduce((sum, a) => sum + a, 0);
+        
+        for (const option in votes) {
+          const percentage = totalVotes === 0 ? 0 : Math.round((votes[option] / totalVotes) * 100);
+          document.getElementById(`result-bar-${option}`).style.width = percentage + '%';
+          document.getElementById(`result-percent-${option}`).textContent = percentage + '%';
+        }
+      }
+
+      // Check if the user has voted before and show results immediately if so
+      if (localStorage.getItem(pollId + '_voted')) {
+        showResults();
+      }
+
+      // Event listener for voting
+      pollOptionsContainer.addEventListener('click', function(e) {
+        const selectedOption = e.target.closest('.poll-option');
+        if (selectedOption) {
+          const optionKey = selectedOption.dataset.option;
+          
+          // Prevent voting again
+          if (localStorage.getItem(pollId + '_voted')) return;
+
+          // Increment vote, save to localStorage, and mark as voted
+          votes[optionKey]++;
+          localStorage.setItem(pollId + '_votes', JSON.stringify(votes));
+          localStorage.setItem(pollId + '_voted', 'true');
+          
+          // Show the results
+          showResults();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
